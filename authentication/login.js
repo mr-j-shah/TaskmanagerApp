@@ -1,39 +1,36 @@
 const mysql = require("mysql")
 const conn = require("../db/connection")
 
+const fs = require("fs");
+const loginsuc = fs.readFileSync("./html/loginsucess.html");
 const login = async (req,res)=>{
-    await conn.connect(
-        function (err){
-            if (err) {
-                throw err;
-            }
-            console.log("Conncted");
-        }
-    );
+    
     
     const email = req.body.email;
     const password = req.body.password;
     console.log(email);
     console.log(password);
     var sql ="SELECT * FROM `login` WHERE email = "+ mysql.escape(email);
-    conn.query(sql,function (err,result,fields) {
+    await conn.query(sql,function (err,result,fields) {
         console.log(result);
         if (err) throw err;
         var string=JSON.stringify(result);
         var json =  JSON.parse(string);
         if (json.length==0) {
-            res.redirect("/login/signup");
+            res.json({"Status":"NoUser"});
+            res.end();
         }
         else{
-            console.log(json[0].email==email);
-            console.log(json[0].password==password);
             if (json[0].email==email&&json[0].password==password) {
-                res.send("User Sucessful");
+                res.json({"Status":"Success"});
+                res.end();
             }
             else{
-                res.send("Password Wrong!!");
+                res.json({"Status":"Error"});
+                res.end();
             }
         }
-    })
+    });
+    
 }
 module.exports = {login};

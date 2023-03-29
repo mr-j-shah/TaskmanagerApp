@@ -1,14 +1,6 @@
 const mysql = require("mysql")
 const conn = require("../db/connection")
 const signup = async (req,res)=>{
-    await conn.connect(
-        function (err){
-            if (err) {
-                throw err;
-            }
-            console.log("Conncted");
-        }
-    );
     const {email,name,password,mobile} = req.body;
     var values = [[email,password,name,mobile]];
     console.log(email);
