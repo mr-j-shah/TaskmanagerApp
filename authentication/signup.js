@@ -10,9 +10,10 @@ const signup = async (req,res)=>{
         }
     );
     const {email,name,password,mobile} = req.body;
+    var values = [[email,password,name,mobile]];
     console.log(email);
-    var sql ="SELECT * FROM `login` WHERE email = "+ mysql.escape(email);
-    conn.query(sql,function (err,result,fields) {
+    var sql ="INSERT INTO `login`( `email`, `password`, `name`, `mobile`) VALUES (?)";
+    conn.query(sql,values,function (err,result,fields) {
         if (err) throw err;
         console.log(result);
     })
