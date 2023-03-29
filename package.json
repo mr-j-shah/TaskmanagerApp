@@ -1,0 +1,28 @@
+{
+  "name": "taskmanager",
+  "version": "1.0.0",
+  "description": "Task Manager Application",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mr-j-shah/taskmanager_node.git"
+  },
+  "keywords": [
+    "Node",
+    "Js",
+    "Project"
+  ],
+  "author": "Jinay Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mr-j-shah/taskmanager_node/issues"
+  },
+  "homepage": "https://github.com/mr-j-shah/taskmanager_node#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
