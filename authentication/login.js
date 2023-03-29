@@ -1,11 +1,6 @@
 const mysql = require("mysql")
 const conn = require("../db/connection")
-
-const fs = require("fs");
-const loginsuc = fs.readFileSync("./html/loginsucess.html");
 const login = async (req,res)=>{
-    
-    
     const email = req.body.email;
     const password = req.body.password;
     console.log(email);
