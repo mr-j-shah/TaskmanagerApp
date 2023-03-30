@@ -25,7 +25,18 @@ const getAllTask=(req,res)=>{
 
 const updateTask=(req,res)=>{    
     const { id: taskID } = req.params
-    res.send(taskID+" Update Task");
+    var sql = "UPDATE `tasktable` SET `done`=TRUE WHERE id = ?";
+    conn.query(sql,taskID,function(err,result,fields){
+        if (err) {
+            res.json({ "Status": "Error","message":err });
+            res.end(); 
+        }
+        else{
+            res.json({ "Status": "Success","message":result });
+            res.end(); 
+        }
+    });
+    
 }
 
 const deleteTask=(req,res)=>{
