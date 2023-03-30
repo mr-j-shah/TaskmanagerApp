@@ -25,18 +25,42 @@ const getAllTask=(req,res)=>{
 
 const updateTask=(req,res)=>{    
     const { id: taskID } = req.params
-    var sql = "UPDATE `tasktable` SET `done`=TRUE WHERE id = ?";
-    conn.query(sql,taskID,function(err,result,fields){
-        if (err) {
-            res.json({ "Status": "Error","message":err });
-            res.end(); 
-        }
-        else{
-            res.json({ "Status": "Success","message":result });
-            res.end(); 
-        }
-    });
-    
+    var selectquery = "SELECT `done` FROM `tasktable` WHERE id = ?";
+    var sql = "UPDATE `tasktable` SET `done`= ? WHERE id = ?";
+    function getdata(id) {
+        return new Promise((resolve) => {
+            conn.query(selectquery,taskID,(err,result,fields)=>{
+                if (result) {
+                    var string=JSON.stringify(result);
+                    var json =  JSON.parse(string);
+                    console.log(json);
+                    if (json.length>0) {
+                        resolve(json[0]);
+                    } 
+                }
+            });
+        });
+    }
+    function updatedata(id,data) {
+        return new Promise((resolve)=>{
+            conn.query(sql, [data, id], function (err, result, fields) {
+                if (err) {
+                    res.json({ "Status": "Error", "message": err });
+                    res.end();
+                }
+                else {
+                    res.json({ "Status": "Success", "Result": result });
+                    res.end();
+                }
+            });
+            resolve();
+        });
+    }
+    start=async ()=>{
+        const data = await getdata(taskID);
+        await updatedata(taskID,!data.done);
+    }
+    start();    // console.log(data);
 }
 
 const deleteTask=(req,res)=>{
