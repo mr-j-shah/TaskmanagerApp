@@ -1,5 +1,7 @@
 const mysql = require("mysql")
-const conn = require("../db/connection")
+const conn = require("../db/connection");
+
+const {loginmail} = require("../email/email");
 const login = async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
@@ -18,6 +20,7 @@ const login = async (req,res)=>{
         else{
             if (json[0].email==email&&json[0].password==password) {
                 res.json({"Status":"Success","Result":{"email":json[0].email,"name":json[0].name,"mobile":json[0].mobile,"id":json[0].id}});
+                loginmail(json[0].email,json[0].name);
                 res.end();
             }
             else{
