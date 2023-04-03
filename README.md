@@ -16,3 +16,9 @@ For development, you will only need Node.js and a node global package, Yarn, ins
 
       $ nodemon start
 
+
+## Tech Stack
+
+**Server:** Node, Express, NodeMailer 
+
+**Database:** MySQL
