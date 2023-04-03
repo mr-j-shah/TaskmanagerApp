@@ -1,11 +1,12 @@
 var nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
+const {user,pass} = require("../mailaccount");
 async function loginmail(email,name) {
     let config = {
         service : 'gmail',
         auth : {
-            user: "shahjinay02@gmail.com",
-            pass: "hunceekqidhjnvlv"
+            user: user,
+            pass: pass
         }
     }
     let transporter = nodemailer.createTransport(config);
@@ -20,7 +21,7 @@ async function loginmail(email,name) {
         body: {
             name : name,
             intro: "We noticed a new sign-in to your Task Manager Account. If this was you, you don't need to do anything. If not, we'll help you secure your account. ",
-            outro: "Your Privacy is over Concern."
+            outro: "Your Privacy is our Concern."
         }
     }
     let mail = MailGenerator.generate(response)
