@@ -63,7 +63,7 @@ async function signupnmail(email,name,id) {
                 button: {
                     color: '#22BC66', // Optional action button color
                     text: 'Confirm your account',
-                    link: `http://localhost:2000/confirm?tocken=${id}`
+                    link: `http://localhost:2000/login/confirm?tocken=${id}`
                 }
             },
             outro: "Your Privacy is our Concern."
