@@ -19,9 +19,15 @@ const login = async (req,res)=>{
         }
         else{
             if (json[0].email==email&&json[0].password==password) {
-                res.json({"Status":"Success","Result":{"email":json[0].email,"name":json[0].name,"mobile":json[0].mobile,"id":json[0].id}});
-                loginmail(json[0].email,json[0].name);
-                res.end();
+                if (json[0].confirm===0) {
+                    res.json({"Status":"RuntimeError","Result":{"message":"Confirm Email-Id from Mail"}});
+                    res.end();
+                }
+                else{
+                    res.json({"Status":"Success","Result":{"email":json[0].email,"name":json[0].name,"mobile":json[0].mobile,"id":json[0].id}});
+                    // loginmail(json[0].email,json[0].name);
+                    res.end();
+                }
             }
             else{
                 res.json({"Status":"Wrong Password","Result":{}});
